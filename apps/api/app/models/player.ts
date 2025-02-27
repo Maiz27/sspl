@@ -1,5 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import PlayerStatus from './player_status.js'
+import Team from './team.js'
+import PlayerPosition from './player_position.js'
 
 export default class Player extends BaseModel {
   @column({ isPrimary: true })
@@ -27,16 +31,16 @@ export default class Player extends BaseModel {
   declare weightKg: number | null
 
   @column()
-  declare positionId: number
-
-  @column()
-  declare jerseyNumber: number | null
+  declare statusId: number
 
   @column()
   declare teamId: string
 
   @column()
-  declare statusId: number
+  declare positionId: number
+
+  @column()
+  declare jerseyNumber: number | null
 
   @column()
   declare photoUrl: string | null
@@ -55,4 +59,13 @@ export default class Player extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  @belongsTo(() => PlayerStatus)
+  declare status: BelongsTo<typeof PlayerStatus>
+
+  @belongsTo(() => Team)
+  declare team: BelongsTo<typeof Team>
+
+  @belongsTo(() => PlayerPosition)
+  declare position: BelongsTo<typeof PlayerPosition>
 }
