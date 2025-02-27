@@ -5,15 +5,20 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('id').notNullable()
+      table.uuid('id').notNullable().primary()
       table.string('username', 50).notNullable().unique()
       table.string('email', 254).notNullable().unique()
 
       table.string('first_name', 50).notNullable()
       table.string('last_name', 50).nullable()
 
-      table.integer('role_id').notNullable()
-      table.integer('account_status_id').notNullable()
+      table.integer('role_id').unsigned().references('id').inTable('user_roles').notNullable()
+      table
+        .integer('account_status_id')
+        .unsigned()
+        .references('id')
+        .inTable('account_statuses')
+        .notNullable()
 
       table.string('avatar_url').nullable()
 
