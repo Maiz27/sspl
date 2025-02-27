@@ -15,13 +15,13 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare id: number
 
   @column()
-  declare username: string | null
+  declare username: string
 
   @column()
   declare email: string
 
   @column()
-  declare firstName: string | null
+  declare firstName: string
 
   @column()
   declare lastName: string | null
@@ -33,7 +33,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare accountStatusId: string | null
 
   @column()
-  declare avatar: string | null
+  declare avatarUrl: string | null
 
   @column({ serializeAs: null })
   declare password: string
