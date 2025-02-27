@@ -7,6 +7,7 @@ import RefereeRole from '#models/referee_role'
 import PlayerStatus from '#models/player_status'
 import GoalType from '#models/goal_type'
 import CardType from '#models/card_type'
+import SeasonStatus from '#models/season_status'
 
 import { userRoleValues } from '#enums/user_role'
 import { accountStatusValues } from '#enums/account_status'
@@ -16,6 +17,7 @@ import { cardTypeValues } from '#enums/card_type'
 import { goalTypeValues } from '#enums/goal_type'
 import { playerStatusValues } from '#enums/player_status'
 import { refereeRoleValues } from '#enums/referee_role'
+import { seasonStatusValues } from '#enums/season_status'
 
 export default class extends BaseSeeder {
   async run() {
@@ -36,5 +38,7 @@ export default class extends BaseSeeder {
     await GoalType.createMany(goalTypeValues)
 
     await CardType.createMany(cardTypeValues)
+
+    await SeasonStatus.createMany(seasonStatusValues)
   }
 }
