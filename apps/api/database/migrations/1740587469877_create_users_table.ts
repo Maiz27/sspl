@@ -15,10 +15,10 @@ export default class extends BaseSchema {
       table.integer('role_id').notNullable()
       table.integer('account_status_id').notNullable()
 
+      table.string('avatar').nullable()
+
       table.string('password').notNullable()
       table.timestamp('last_password_change').nullable()
-
-      table.string('avatar').nullable()
 
       table.timestamp('last_login').nullable()
       table.timestamp('created_at').notNullable()
