@@ -4,10 +4,11 @@ import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import PlayerStatus from './player_status.js'
 import Team from './team.js'
 import PlayerPosition from './player_position.js'
+import type { UUID } from 'node:crypto'
 
 export default class Player extends BaseModel {
   @column({ isPrimary: true })
-  declare id: string
+  declare id: UUID
 
   @column()
   declare firstName: string
@@ -34,7 +35,7 @@ export default class Player extends BaseModel {
   declare statusId: number
 
   @column()
-  declare teamId: string
+  declare teamId: UUID
 
   @column()
   declare positionId: number

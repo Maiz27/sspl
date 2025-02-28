@@ -1,9 +1,10 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@adonisjs/lucid/orm'
+import type { UUID } from 'node:crypto'
 
 export default class Manager extends BaseModel {
   @column({ isPrimary: true })
-  declare id: string
+  declare id: UUID
 
   @column()
   declare firstName: string

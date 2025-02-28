@@ -2,10 +2,11 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
 import Player from './player.js'
+import type { UUID } from 'node:crypto'
 
 export default class Team extends BaseModel {
   @column({ isPrimary: true })
-  declare id: string
+  declare id: UUID
 
   @column()
   declare name: string

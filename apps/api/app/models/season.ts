@@ -3,10 +3,11 @@ import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import SeasonStatus from './season_status.js'
 import Team from './team.js'
+import type { UUID } from 'node:crypto'
 
 export default class Season extends BaseModel {
   @column({ isPrimary: true })
-  declare id: string
+  declare id: UUID
 
   @column()
   declare slug: string
@@ -21,7 +22,7 @@ export default class Season extends BaseModel {
   declare statusId: number
 
   @column()
-  declare championshipId: string | null
+  declare championshipId: UUID | null
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
