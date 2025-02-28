@@ -1,3 +1,4 @@
+import CardType from '#enums/card_type'
 import { BaseSchema } from '@adonisjs/lucid/schema'
 
 export default class extends BaseSchema {
@@ -11,7 +12,12 @@ export default class extends BaseSchema {
       table.uuid('team_id').references('id').inTable('teams').notNullable()
 
       table.integer('minute').notNullable()
-      table.integer('card_type_id').references('id').inTable('card_types').notNullable()
+      table
+        .integer('card_type_id')
+        .references('id')
+        .inTable('card_types')
+        .notNullable()
+        .defaultTo(CardType.RED)
 
       table.uuid('player_id').references('id').inTable('players').notNullable()
       table.text('description').nullable()

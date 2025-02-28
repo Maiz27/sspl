@@ -1,3 +1,4 @@
+import PlayerStatus from '#enums/player_status'
 import { BaseSchema } from '@adonisjs/lucid/schema'
 
 export default class extends BaseSchema {
@@ -17,7 +18,13 @@ export default class extends BaseSchema {
       table.integer('height_cm').nullable()
       table.integer('weight_kg').nullable()
 
-      table.integer('status_id').unsigned().references('id').inTable('player_statuses')
+      table
+        .integer('status_id')
+        .unsigned()
+        .references('id')
+        .inTable('player_statuses')
+        .notNullable()
+        .defaultTo(PlayerStatus.ACTIVE)
       table.uuid('team_id').references('id').inTable('teams').onDelete('CASCADE')
       table
         .integer('position_id')
