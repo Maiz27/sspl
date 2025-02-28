@@ -1,10 +1,11 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import type { UUID } from 'node:crypto'
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import Season from './season.js'
 import Team from './team.js'
 import SeasonStatus from './season_status.js'
+import MatchReferee from './match_referee.js'
 
 export default class Match extends BaseModel {
   @column({ isPrimary: true })
@@ -51,4 +52,7 @@ export default class Match extends BaseModel {
 
   @belongsTo(() => SeasonStatus)
   declare status: BelongsTo<typeof SeasonStatus>
+
+  @hasMany(() => MatchReferee)
+  declare matchReferees: HasMany<typeof MatchReferee>
 }
