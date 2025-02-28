@@ -8,6 +8,7 @@ import GoalEvent from './goal_event.js'
 import OtherEvent from './other_event.js'
 import SubstitutionEvent from './substitution_event.js'
 import MatchNonEventStat from './match_non_event_stat.js'
+import PlayerTeamHistory from './player_team_history.js'
 
 export default class Team extends BaseModel {
   @column({ isPrimary: true })
@@ -66,4 +67,7 @@ export default class Team extends BaseModel {
 
   @hasMany(() => MatchNonEventStat)
   declare nonEventStats: HasMany<typeof MatchNonEventStat>
+
+  @hasMany(() => PlayerTeamHistory)
+  declare playerTeamHistories: HasMany<typeof PlayerTeamHistory>
 }
