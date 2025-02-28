@@ -31,10 +31,10 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare lastName: string | null
 
   @column()
-  declare roleId: string
+  declare roleId: number
 
   @column()
-  declare accountStatusId: string
+  declare accountStatusId: number
 
   @column()
   declare avatarUrl: string | null
