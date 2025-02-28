@@ -11,7 +11,7 @@ export default class extends BaseSchema {
       table.uuid('team_id').references('id').inTable('teams').notNullable()
 
       table.integer('minute').notNullable()
-      table.uuid('card_type_id').references('id').inTable('card_types').notNullable()
+      table.integer('card_type_id').references('id').inTable('card_types').notNullable()
 
       table.uuid('player_id').references('id').inTable('players').notNullable()
       table.text('description').nullable()

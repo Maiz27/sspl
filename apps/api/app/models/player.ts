@@ -1,10 +1,14 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
+import type { UUID } from 'node:crypto'
 import PlayerStatus from './player_status.js'
 import Team from './team.js'
 import PlayerPosition from './player_position.js'
-import type { UUID } from 'node:crypto'
+import CardEvent from './card_event.js'
+import GoalEvent from './goal_event.js'
+import OtherEvent from './other_event.js'
+import SubstitutionEvent from './substitution_event.js'
 
 export default class Player extends BaseModel {
   @column({ isPrimary: true })
@@ -69,4 +73,37 @@ export default class Player extends BaseModel {
 
   @belongsTo(() => PlayerPosition)
   declare position: BelongsTo<typeof PlayerPosition>
+
+  @hasMany(() => GoalEvent, {
+    foreignKey: 'scorerId',
+  })
+  declare goalsScored: HasMany<typeof GoalEvent>
+
+  @hasMany(() => GoalEvent, {
+    foreignKey: 'assistantId',
+  })
+  declare assists: HasMany<typeof GoalEvent>
+
+  @hasMany(() => CardEvent)
+  declare cards: HasMany<typeof CardEvent>
+
+  @hasMany(() => SubstitutionEvent, {
+    foreignKey: 'playerOutId',
+  })
+  declare substitutionsOut: HasMany<typeof SubstitutionEvent>
+
+  @hasMany(() => SubstitutionEvent, {
+    foreignKey: 'playerInId',
+  })
+  declare substitutionsIn: HasMany<typeof SubstitutionEvent>
+
+  @hasMany(() => OtherEvent, {
+    foreignKey: 'primaryPlayerId',
+  })
+  declare primaryInEvents: HasMany<typeof OtherEvent>
+
+  @hasMany(() => OtherEvent, {
+    foreignKey: 'secondaryPlayerId',
+  })
+  declare secondaryInEvents: HasMany<typeof OtherEvent>
 }
