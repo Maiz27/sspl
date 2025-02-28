@@ -1,6 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
 import type { UUID } from 'node:crypto'
+import type { HasMany } from '@adonisjs/lucid/types/relations'
+import TeamManagerHistory from './team_manager_history.js'
 
 export default class Manager extends BaseModel {
   @column({ isPrimary: true })
@@ -29,4 +31,7 @@ export default class Manager extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  @hasMany(() => TeamManagerHistory)
+  declare teamManagerHistories: HasMany<typeof TeamManagerHistory>
 }

@@ -24,7 +24,7 @@ export default class Player extends BaseModel {
   @column()
   declare nickname: string | null
 
-  @column()
+  @column.date()
   declare dateOfBirth: DateTime
 
   @column()
@@ -54,10 +54,10 @@ export default class Player extends BaseModel {
   @column()
   declare biography: string | null
 
-  @column()
+  @column.date()
   declare contractStartDate: DateTime | null
 
-  @column()
+  @column.date()
   declare contractEndDate: DateTime | null
 
   @column.dateTime({ autoCreate: true })
