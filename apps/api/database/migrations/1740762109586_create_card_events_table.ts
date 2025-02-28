@@ -1,21 +1,26 @@
-import RefereeRole from '#enums/referee_role'
+import CardType from '#enums/card_type'
 import { BaseSchema } from '@adonisjs/lucid/schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'match_referees'
+  protected tableName = 'card_events'
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid('id').primary()
 
       table.uuid('match_id').references('id').inTable('matches').onDelete('CASCADE').notNullable()
-      table.uuid('referee_id').references('id').inTable('referees').notNullable()
+      table.uuid('team_id').references('id').inTable('teams').notNullable()
+
+      table.integer('minute').notNullable()
       table
-        .integer('role_id')
+        .integer('card_type_id')
         .references('id')
-        .inTable('referee_roles')
+        .inTable('card_types')
         .notNullable()
-        .defaultTo(RefereeRole.MAIN_REFEREE)
+        .defaultTo(CardType.RED)
+
+      table.uuid('player_id').references('id').inTable('players').notNullable()
+      table.text('description').nullable()
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

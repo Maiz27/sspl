@@ -1,8 +1,12 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
-import Player from './player.js'
 import type { UUID } from 'node:crypto'
+import Player from './player.js'
+import CardEvent from './card_event.js'
+import GoalEvent from './goal_event.js'
+import OtherEvent from './other_event.js'
+import SubstitutionEvent from './substitution_event.js'
 
 export default class Team extends BaseModel {
   @column({ isPrimary: true })
@@ -46,4 +50,16 @@ export default class Team extends BaseModel {
 
   @hasMany(() => Player)
   declare players: HasMany<typeof Player>
+
+  @hasMany(() => GoalEvent)
+  declare goalEvents: HasMany<typeof GoalEvent>
+
+  @hasMany(() => CardEvent)
+  declare cardEvents: HasMany<typeof CardEvent>
+
+  @hasMany(() => SubstitutionEvent)
+  declare substitutionEvents: HasMany<typeof SubstitutionEvent>
+
+  @hasMany(() => OtherEvent)
+  declare otherEvents: HasMany<typeof OtherEvent>
 }
