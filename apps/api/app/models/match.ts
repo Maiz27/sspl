@@ -10,6 +10,7 @@ import OtherEvent from './other_event.js'
 import SubstitutionEvent from './substitution_event.js'
 import CardEvent from './card_event.js'
 import GoalEvent from './goal_event.js'
+import MatchNonEventStat from './match_non_event_stat.js'
 
 export default class Match extends BaseModel {
   @column({ isPrimary: true })
@@ -71,4 +72,7 @@ export default class Match extends BaseModel {
 
   @hasMany(() => OtherEvent)
   declare otherEvents: HasMany<typeof OtherEvent>
+
+  @hasMany(() => MatchNonEventStat)
+  declare nonEventStats: HasMany<typeof MatchNonEventStat>
 }
