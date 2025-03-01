@@ -30,12 +30,6 @@ export default class Match extends BaseModel {
   declare matchDate: DateTime
 
   @column()
-  declare homeScore: number
-
-  @column()
-  declare awayScore: number
-
-  @column()
   declare statusId: number
 
   @column()
