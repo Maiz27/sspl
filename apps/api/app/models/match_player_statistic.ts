@@ -1,7 +1,7 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import type { UUID } from 'node:crypto'
 
-export default class MatchPlayerStatistic extends BaseModel {
+export default class PlayerMatchStatistic extends BaseModel {
   @column()
   declare playerId: UUID
 

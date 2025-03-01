@@ -3,11 +3,11 @@ import EventType, { eventTypeValues } from '#enums/event_type'
 import { BaseSchema } from '@adonisjs/lucid/schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'match_player_statistics'
+  protected tableName = 'player_match_statistics'
 
   async up() {
     // Create a view
-    this.schema.createView(this.tableName, (view) => {
+    this.schema.createMaterializedView(this.tableName, (view) => {
       // Define columns that will be in the view
       view.columns([
         'player_id',
@@ -94,6 +94,6 @@ export default class extends BaseSchema {
   }
 
   async down() {
-    this.schema.dropView(this.tableName)
+    this.schema.dropMaterializedView(this.tableName)
   }
 }
