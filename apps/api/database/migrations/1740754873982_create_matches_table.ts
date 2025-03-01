@@ -13,8 +13,6 @@ export default class extends BaseSchema {
       table.uuid('away_team_id').references('id').inTable('teams').notNullable()
 
       table.timestamp('match_date').notNullable()
-      table.integer('home_score').defaultTo(0)
-      table.integer('away_score').defaultTo(0)
       table
         .integer('status_id')
         .references('id')

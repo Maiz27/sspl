@@ -6,10 +6,12 @@ import Season from './season.js'
 import Team from './team.js'
 import SeasonStatus from './season_status.js'
 import MatchReferee from './match_referee.js'
+import MatchPlayer from './match_player.js'
 import OtherEvent from './other_event.js'
 import SubstitutionEvent from './substitution_event.js'
 import CardEvent from './card_event.js'
 import GoalEvent from './goal_event.js'
+import MatchNonEventStat from './match_non_event_stat.js'
 
 export default class Match extends BaseModel {
   @column({ isPrimary: true })
@@ -26,12 +28,6 @@ export default class Match extends BaseModel {
 
   @column.dateTime()
   declare matchDate: DateTime
-
-  @column()
-  declare homeScore: number
-
-  @column()
-  declare awayScore: number
 
   @column()
   declare statusId: number
@@ -60,6 +56,9 @@ export default class Match extends BaseModel {
   @hasMany(() => MatchReferee)
   declare matchReferees: HasMany<typeof MatchReferee>
 
+  @hasMany(() => MatchPlayer)
+  declare matchPlayers: HasMany<typeof MatchPlayer>
+
   @hasMany(() => GoalEvent)
   declare goalEvents: HasMany<typeof GoalEvent>
 
@@ -71,4 +70,7 @@ export default class Match extends BaseModel {
 
   @hasMany(() => OtherEvent)
   declare otherEvents: HasMany<typeof OtherEvent>
+
+  @hasMany(() => MatchNonEventStat)
+  declare nonEventStats: HasMany<typeof MatchNonEventStat>
 }
