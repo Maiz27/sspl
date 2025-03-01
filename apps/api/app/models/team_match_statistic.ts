@@ -3,6 +3,9 @@ import type { UUID } from 'node:crypto'
 
 export default class TeamMatchStatistic extends BaseModel {
   @column()
+  declare seasonId: UUID
+
+  @column()
   declare matchId: UUID
 
   @column()

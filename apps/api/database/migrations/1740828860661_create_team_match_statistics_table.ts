@@ -8,6 +8,7 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createMaterializedView(this.tableName, (view) => {
       view.columns([
+        'season_id',
         'match_id',
         'team_id',
         'possession_percentage',
@@ -28,6 +29,7 @@ export default class extends BaseSchema {
         this.knex()
           .select(
             // Basic match and team identifiers
+            'm.season_id as season_id',
             'm.id as match_id',
             't.id as team_id',
 
@@ -46,7 +48,7 @@ export default class extends BaseSchema {
               .as('passes_total'),
 
             this.knex()
-              .count('* as passes_completed')
+              .select('passes_completed')
               .from('match_non_event_stats as mne')
               .whereRaw('mne.match_id = m.id AND mne.team_id = t.id')
               .as('passes_completed'),
