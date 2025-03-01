@@ -10,6 +10,7 @@ import SubstitutionEvent from './substitution_event.js'
 import MatchNonEventStat from './match_non_event_stat.js'
 import PlayerTeamHistory from './player_team_history.js'
 import TeamManagerHistory from './team_manager_history.js'
+import MatchPlayer from './match_player.js'
 
 export default class Team extends BaseModel {
   @column({ isPrimary: true })
@@ -74,4 +75,7 @@ export default class Team extends BaseModel {
 
   @hasMany(() => TeamManagerHistory)
   declare teamManagerHistories: HasMany<typeof TeamManagerHistory>
+
+  @hasMany(() => MatchPlayer)
+  declare matchPlayers: HasMany<typeof MatchPlayer>
 }

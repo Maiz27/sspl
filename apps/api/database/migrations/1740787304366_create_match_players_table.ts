@@ -8,11 +8,13 @@ export default class extends BaseSchema {
       table.uuid('id').primary()
 
       table.uuid('match_id').references('id').inTable('matches').onDelete('CASCADE').notNullable()
+      table.uuid('team_id').references('id').inTable('teams').notNullable()
       table.uuid('player_id').references('id').inTable('players').notNullable()
 
       table.boolean('is_starter').notNullable()
-      table.integer('minute_in').notNullable()
-      table.integer('minute_out').notNullable()
+      table.integer('minute_in').nullable()
+      table.integer('minute_out').nullable()
+      table.integer('minutes_played').notNullable().defaultTo(0)
 
       table.timestamp('created_at')
       table.timestamp('updated_at')
