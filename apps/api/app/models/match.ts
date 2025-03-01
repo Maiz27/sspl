@@ -6,6 +6,7 @@ import Season from './season.js'
 import Team from './team.js'
 import SeasonStatus from './season_status.js'
 import MatchReferee from './match_referee.js'
+import MatchPlayer from './match_player.js'
 import OtherEvent from './other_event.js'
 import SubstitutionEvent from './substitution_event.js'
 import CardEvent from './card_event.js'
@@ -60,6 +61,9 @@ export default class Match extends BaseModel {
 
   @hasMany(() => MatchReferee)
   declare matchReferees: HasMany<typeof MatchReferee>
+
+  @hasMany(() => MatchPlayer)
+  declare matchPlayers: HasMany<typeof MatchPlayer>
 
   @hasMany(() => GoalEvent)
   declare goalEvents: HasMany<typeof GoalEvent>
