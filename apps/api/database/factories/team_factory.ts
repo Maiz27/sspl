@@ -1,6 +1,7 @@
 import factory from '@adonisjs/lucid/factories'
 import { DateTime } from 'luxon'
 import Team from '#models/team'
+import { SeasonFactory } from './season_factory.js'
 
 export const TeamFactory = factory
   .define(Team, async ({ faker }) => {
@@ -23,4 +24,5 @@ export const TeamFactory = factory
       contactInfo: JSON.stringify(''),
     }
   })
+  .relation('championships', () => SeasonFactory.apply('completed'))
   .build()

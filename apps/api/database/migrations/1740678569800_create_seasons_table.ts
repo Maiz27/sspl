@@ -7,7 +7,6 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid('id').primary().defaultTo(this.db.rawQuery('uuid_generate_v4()').knexQuery)
-      table.string('slug').unique().notNullable()
 
       table.date('start_date')
       table.date('end_date')
@@ -19,7 +18,7 @@ export default class extends BaseSchema {
         .notNullable()
         .defaultTo(SeasonStatus.UPCOMING)
 
-      table.uuid('championship_id').references('id').inTable('teams').nullable()
+      table.uuid('champion_id').references('id').inTable('teams').nullable()
 
       table.timestamp('created_at')
       table.timestamp('updated_at')
