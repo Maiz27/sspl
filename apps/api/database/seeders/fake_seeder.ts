@@ -1,12 +1,15 @@
-import { teams } from '#database/data/teams'
-import { TeamFactory } from '#database/factories/team_factory'
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
+import { TeamFactory } from '#database/factories/team_factory'
+import { ManagerFactory } from '#database/factories/manager_factory'
+import { teams } from '#database/data/teams'
 
 export default class extends BaseSeeder {
   async run() {
     // Write your database queries inside the run method
 
     await this.#createTeams()
+
+    await ManagerFactory.createMany(teams.length)
   }
 
   async #createTeams() {
