@@ -22,6 +22,9 @@ export default class Team extends BaseModel {
   @column()
   declare shortName: string
 
+  @column()
+  declare city: string
+
   @column.date()
   declare foundedDate: DateTime
 
