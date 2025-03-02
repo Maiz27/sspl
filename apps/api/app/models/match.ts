@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column, hasMany, hasOne } from '@adonisjs/lucid/orm'
 import type { UUID } from 'node:crypto'
-import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
+import type { BelongsTo, HasMany, HasOne } from '@adonisjs/lucid/types/relations'
 import Season from './season.js'
 import Team from './team.js'
 import SeasonStatus from './season_status.js'
@@ -12,6 +12,7 @@ import SubstitutionEvent from './substitution_event.js'
 import CardEvent from './card_event.js'
 import GoalEvent from './goal_event.js'
 import MatchNonEventStat from './match_non_event_stat.js'
+import MatchGallery from './match_gallery.js'
 
 export default class Match extends BaseModel {
   @column({ isPrimary: true })
@@ -73,4 +74,7 @@ export default class Match extends BaseModel {
 
   @hasMany(() => MatchNonEventStat)
   declare nonEventStats: HasMany<typeof MatchNonEventStat>
+
+  @hasOne(() => MatchGallery)
+  declare matchGallery: HasOne<typeof MatchGallery>
 }
