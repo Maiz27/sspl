@@ -7,20 +7,21 @@ import { SeasonFactory } from '#database/factories/season_factory'
 import { teams } from '#database/data/teams'
 import { seasons } from '#database/data/seasons'
 import Team from '#models/team'
-import { players } from '#database/data/players'
 import type { UUID } from 'node:crypto'
+import { players } from '#database/data/players'
 import { PlayerFactory } from '#database/factories/player_factory'
+import { managers } from '#database/data/managers'
 
 export default class extends BaseSeeder {
   async run() {
-    // create all the teams that won't be champions
+    // create all the teams
     await this.#createTeams()
 
-    // Create each season with its proper state and relationship to a champion if needed
+    // Create each seasons
     await this.#createSeasons()
 
     // Create managers for each team
-    await ManagerFactory.createMany(teams.length)
+    await this.#createManagers()
 
     // Create players for each team
     await this.#createPlayers()
@@ -46,6 +47,25 @@ export default class extends BaseSeeder {
       season.championId = seasonData.championId as UUID
       i++
     }).createMany(seasons.length)
+  }
+
+  async #createManagers() {
+    let teamOffset = 0
+    for (const manager of managers) {
+      await ManagerFactory.tap((row) => {
+        row.id = manager.id as UUID
+      })
+        .with('teamManagerHistories', 1, (historyCtx) => {
+          historyCtx.tap((row) => {
+            const teamId = teams[teamOffset].id as UUID
+            row.teamId = teamId
+            row.startDate = DateTime.fromJSDate(new Date(manager.startDate))
+            row.endDate = DateTime.fromJSDate(new Date(manager.endDate))
+            teamOffset++
+          })
+        })
+        .create()
+    }
   }
 
   async #createPlayers() {
