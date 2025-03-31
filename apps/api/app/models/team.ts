@@ -56,9 +56,6 @@ export default class Team extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 
-  @hasMany(() => Player)
-  declare players: HasMany<typeof Player>
-
   @hasMany(() => GoalEvent)
   declare goalEvents: HasMany<typeof GoalEvent>
 

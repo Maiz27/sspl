@@ -3,6 +3,7 @@ import { DateTime } from 'luxon'
 import Season from '#models/season'
 import SeasonStatus from '#enums/season_status'
 import { TeamFactory } from './team_factory.js'
+import { PlayerTeamHistoryFactory } from './player_team_history_factory.js'
 
 export const SeasonFactory = factory
   .define(Season, async ({ faker }) => {
@@ -52,4 +53,5 @@ export const SeasonFactory = factory
     season.statusId = SeasonStatus.COMPLETED
   })
   .relation('champion', () => TeamFactory)
+  .relation('playerTeamHistories', () => PlayerTeamHistoryFactory)
   .build()
