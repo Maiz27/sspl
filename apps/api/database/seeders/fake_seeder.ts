@@ -28,25 +28,23 @@ export default class extends BaseSeeder {
   }
 
   async #createTeams() {
-    let i = 0
-    await TeamFactory.tap((row, ctx) => {
-      const team = teams[i]
-      this.#applyCustomTeamFields(row, ctx, team)
-      i++
-    }).createMany(teams.length)
+    for (const team of teams) {
+      await TeamFactory.tap((row, ctx) => {
+        this.#applyCustomTeamFields(row, ctx, team)
+      }).create()
+    }
   }
 
   async #createSeasons() {
-    let i = 0
-    await SeasonFactory.tap((season) => {
-      const seasonData = seasons[i]
-      season.id = seasonData.id as UUID
-      season.startDate = DateTime.fromJSDate(new Date(seasonData.startDate))
-      season.endDate = DateTime.fromJSDate(new Date(seasonData.endDate))
-      season.statusId = seasonData.statusId
-      season.championId = seasonData.championId as UUID
-      i++
-    }).createMany(seasons.length)
+    for (const season of seasons) {
+      await SeasonFactory.tap((row) => {
+        row.id = season.id as UUID
+        row.startDate = DateTime.fromJSDate(new Date(season.startDate))
+        row.endDate = DateTime.fromJSDate(new Date(season.endDate))
+        row.statusId = season.statusId
+        row.championId = season.championId as UUID
+      }).create()
+    }
   }
 
   async #createManagers() {
