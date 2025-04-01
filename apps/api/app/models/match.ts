@@ -45,10 +45,14 @@ export default class Match extends BaseModel {
   @belongsTo(() => Season)
   declare season: BelongsTo<typeof Season>
 
-  @belongsTo(() => Team)
+  @belongsTo(() => Team, {
+    foreignKey: 'homeTeamId',
+  })
   declare homeTeam: BelongsTo<typeof Team>
 
-  @belongsTo(() => Team)
+  @belongsTo(() => Team, {
+    foreignKey: 'awayTeamId',
+  })
   declare awayTeam: BelongsTo<typeof Team>
 
   @belongsTo(() => SeasonStatus)
