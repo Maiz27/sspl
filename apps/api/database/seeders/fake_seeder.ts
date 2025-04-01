@@ -11,6 +11,8 @@ import type { UUID } from 'node:crypto'
 import { players } from '#database/data/players'
 import { PlayerFactory } from '#database/factories/player_factory'
 import { managers } from '#database/data/managers'
+import { RefereeFactory } from '#database/factories/referee_factory'
+import { referees } from '#database/data/referee'
 
 export default class extends BaseSeeder {
   async run() {
@@ -22,6 +24,9 @@ export default class extends BaseSeeder {
 
     // Create managers for each team
     await this.#createManagers()
+
+    // Create referees
+    await this.#createReferees()
 
     // Create players for each team
     await this.#createPlayers()
@@ -63,6 +68,14 @@ export default class extends BaseSeeder {
           })
         })
         .create()
+    }
+  }
+
+  async #createReferees() {
+    for (const referee of referees) {
+      await RefereeFactory.tap((row) => {
+        row.id = referee.id as UUID
+      }).create()
     }
   }
 
