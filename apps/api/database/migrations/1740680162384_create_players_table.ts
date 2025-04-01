@@ -6,7 +6,7 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.uuid('id').primary()
+      table.uuid('id').primary().defaultTo(this.db.rawQuery('uuid_generate_v4()').knexQuery)
 
       table.string('first_name').notNullable()
       table.string('last_name').notNullable()
@@ -25,20 +25,16 @@ export default class extends BaseSchema {
         .inTable('player_statuses')
         .notNullable()
         .defaultTo(PlayerStatus.ACTIVE)
-      table.uuid('team_id').references('id').inTable('teams').onDelete('CASCADE')
+
       table
         .integer('position_id')
         .unsigned()
         .references('id')
         .inTable('player_positions')
         .notNullable()
-      table.integer('jersey_number').nullable()
 
       table.string('photo_url').nullable()
       table.text('biography').nullable()
-
-      table.date('contract_start_date').nullable()
-      table.date('contract_end_date').nullable()
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

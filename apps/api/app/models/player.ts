@@ -3,7 +3,6 @@ import { BaseModel, belongsTo, column, hasMany } from '@adonisjs/lucid/orm'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import type { UUID } from 'node:crypto'
 import PlayerStatus from './player_status.js'
-import Team from './team.js'
 import PlayerPosition from './player_position.js'
 import CardEvent from './card_event.js'
 import GoalEvent from './goal_event.js'
@@ -40,25 +39,13 @@ export default class Player extends BaseModel {
   declare statusId: number
 
   @column()
-  declare teamId: UUID
-
-  @column()
   declare positionId: number
-
-  @column()
-  declare jerseyNumber: number | null
 
   @column()
   declare photoUrl: string | null
 
   @column()
   declare biography: string | null
-
-  @column.date()
-  declare contractStartDate: DateTime | null
-
-  @column.date()
-  declare contractEndDate: DateTime | null
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
@@ -68,9 +55,6 @@ export default class Player extends BaseModel {
 
   @belongsTo(() => PlayerStatus)
   declare status: BelongsTo<typeof PlayerStatus>
-
-  @belongsTo(() => Team)
-  declare team: BelongsTo<typeof Team>
 
   @belongsTo(() => PlayerPosition)
   declare position: BelongsTo<typeof PlayerPosition>
