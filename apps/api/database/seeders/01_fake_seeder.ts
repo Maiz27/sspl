@@ -72,11 +72,7 @@ export default class extends BaseSeeder {
   }
 
   async #createReferees() {
-    for (const referee of referees) {
-      await RefereeFactory.tap((row) => {
-        row.id = referee.id as UUID
-      }).create()
-    }
+    await RefereeFactory.createMany(referees.length)
   }
 
   async #createPlayers() {
